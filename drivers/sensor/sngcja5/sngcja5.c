@@ -6,15 +6,15 @@
 
 #define DT_DRV_COMPAT panasonic_sngcja5
 
-// #include <string.h>
-// #include <zephyr/device.h>
-// #include <zephyr/drivers/i2c.h>
-// #include <zephyr/drivers/gpio.h>
-// #include <zephyr/sys/byteorder.h>
-// #include <zephyr/sys/util.h>
-// #include <zephyr/kernel.h>
+#include <string.h>
+#include <zephyr/device.h>
+#include <zephyr/drivers/i2c.h>
+#include <zephyr/drivers/gpio.h>
+#include <zephyr/sys/byteorder.h>
+#include <zephyr/sys/util.h>
+#include <zephyr/kernel.h>
 #include <zephyr/drivers/sensor.h>
-// #include <zephyr/sys/__assert.h>
+#include <zephyr/sys/__assert.h>
 #include <zephyr/logging/log.h>
 
 #include "sngcja5.h"
@@ -78,31 +78,31 @@ static int sngcja5_sample_fetch(const struct device *dev, enum sensor_channel ch
 	__ASSERT_NO_MSG(chan == SENSOR_CHAN_ALL);
 
 	// Read out all relevant sensor value registers
-	if(!read_register_4(&device_config->i2c, SNGCJA5_PM10_LL, &(device_data->pm1_0))){
+	if(read_register_4(&device_config->i2c, SNGCJA5_PM10_LL, &(device_data->pm1_0))){
 		return -EIO;
 	}
-	if(!read_register_4(&device_config->i2c, SNGCJA5_PM25_LL, &(device_data->pm2_5))){
+	if(read_register_4(&device_config->i2c, SNGCJA5_PM25_LL, &(device_data->pm2_5))){
 		return -EIO;
 	}
-	if(!read_register_4(&device_config->i2c, SNGCJA5_PM100_LL, &(device_data->pm10_0))){
+	if(read_register_4(&device_config->i2c, SNGCJA5_PM100_LL, &(device_data->pm10_0))){
 		return -EIO;
 	}
-	if(!read_register_2(&device_config->i2c, SNGCJA5_05_L, &(device_data->pc0_5))){
+	if(read_register_2(&device_config->i2c, SNGCJA5_05_L, &(device_data->pc0_5))){
 		return -EIO;
 	}
-	if(!read_register_2(&device_config->i2c, SNGCJA5_10_L, &(device_data->pc1_0))){
+	if(read_register_2(&device_config->i2c, SNGCJA5_10_L, &(device_data->pc1_0))){
 		return -EIO;
 	}
-	if(!read_register_2(&device_config->i2c, SNGCJA5_25_L, &(device_data->pc2_5))){
+	if(read_register_2(&device_config->i2c, SNGCJA5_25_L, &(device_data->pc2_5))){
 		return -EIO;
 	}
-	if(!read_register_2(&device_config->i2c, SNGCJA5_50_L, &(device_data->pc5_0))){
+	if(read_register_2(&device_config->i2c, SNGCJA5_50_L, &(device_data->pc5_0))){
 		return -EIO;
 	}
-	if(!read_register_2(&device_config->i2c, SNGCJA5_75_L, &(device_data->pc7_5))){
+	if(read_register_2(&device_config->i2c, SNGCJA5_75_L, &(device_data->pc7_5))){
 		return -EIO;
 	}
-	if(!read_register_2(&device_config->i2c, SNGCJA5_100_L, &(device_data->pc10_0))){
+	if(read_register_2(&device_config->i2c, SNGCJA5_100_L, &(device_data->pc10_0))){
 		return -EIO;
 	}
 
@@ -154,7 +154,7 @@ int sngcja5_init(const struct device *dev)
 		return -ENODEV;
 	}
 
-	if (!i2c_configure(config->i2c.bus, I2C_SPEED_SET(I2C_SPEED_STANDARD) | I2C_MODE_CONTROLLER))
+	if (i2c_configure(config->i2c.bus, I2C_SPEED_SET(I2C_SPEED_STANDARD) | I2C_MODE_CONTROLLER))
 	{
 		LOG_ERR("i2c_configure() failed");
 		return -EIO;

@@ -7,9 +7,9 @@
 #ifndef ZEPHYR_DRIVERS_SENSOR_SNGCJA5_SNGCJA5_H_
 #define ZEPHYR_DRIVERS_SENSOR_SNGCJA5_SNGCJA5_H_
 
-// #include <zephyr/device.h>
-// #include <zephyr/drivers/gpio.h>
-// #include <zephyr/sys/util.h>
+#include <zephyr/device.h>
+#include <zephyr/drivers/gpio.h>
+#include <zephyr/sys/util.h>
 #include <drivers/i2c.h>
 
 // Register for PM1.0
